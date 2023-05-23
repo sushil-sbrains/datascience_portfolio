@@ -1,0 +1,53 @@
+{% load static %}
+<head>
+   <title>Portfolio</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="css/style.css">
+   <link rel='stylesheet' href="{% static 'css/style.css' %}" media='all' />
+   <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
+
+
+   <style>
+      .file {
+      visibility: hidden;
+      position: absolute;
+      }
+   </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<div class="container-fluid">
+  <div class="row">
+   <div class="col-md-6">
+      <h2 class="mb-4">Music Genrator</h2>
+      <div class="ml-2 col-md-6">
+         <div id="msg"></div>
+         
+         
+         <form action="{% url 'music_generation' %}" method="POST" id="image-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="img[]" class="file">
+            <div class="input-group my-3">
+                   <input type="file" class="form-control" name="mid_music" id="file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button><br><br>
+         </form>
+      </div>
+      <midi-player
+      src="{{original_sound.music.path}}"
+      sound-font visualizer="#myVisualizer">
+      </midi-player>
+      <midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
+   </div>
+  <div class="col-md-6">
+      <midi-player
+      src="{% static '' %}{{music}}"
+      sound-font visualizer="#myVisualizer">
+      </midi-player>
+      <midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
+   </div> 
+  </div>
+
+</div>

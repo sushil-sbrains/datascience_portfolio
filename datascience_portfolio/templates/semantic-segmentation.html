@@ -1,0 +1,53 @@
+{% load static %}
+<head>
+   <title>Portfolio</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="css/style.css">
+   <link rel='stylesheet' href="{% static 'css/style.css' %}" media='all' />
+   <style>
+      .file {
+      visibility: hidden;
+      position: absolute;
+      }
+   </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<div class="container-fluid">
+  <div class="row">
+   <div class="col-md-6">
+      <h2 class="mb-4">Custom Object Detection</h2>
+      <div class="ml-2 col-md-6">
+         <div id="msg"></div>
+         
+         
+         <form action="{% url 'semantic_segmentation' %}" method="POST" id="image-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="img[]" class="file" accept="image/*">
+            <div class="input-group my-3">
+               {% comment %} <input type="file" class="form-control" name="upload_image" disabled placeholder="Upload File" id="file"> {% endcomment %}
+               <input type="file" class="form-control" name="upload_image" id="file" required>
+
+               {% comment %} <div class="input-group-append">
+                  <button type="button" class="browse btn btn-primary">Browse...</button>
+               </div> {% endcomment %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <img src="{{image_path.image.url}}" id="preview" class="img-thumbnail">
+
+         </form>
+
+
+
+      </div>
+         {% comment %} <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail"> {% endcomment %}
+   </div>
+  <div class="col-md-6">
+         <img src="{% static '' %}{{image_paths}}" id="preview" class="img-thumbnail">
+   </div> 
+  </div>
+
+</div>
